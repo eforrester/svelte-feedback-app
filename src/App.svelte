@@ -1,45 +1,34 @@
 <script>
-	let firstName = 'Emma';
-	let lastName = 'Forrester';
-	let color = 'blue'
-	let showText = false
-
-	$: name = firstName + ' ' + lastName 
-
-	const toggle = () => {
-		color = color === 'blue' ? 'red' : 'blue'
-		showText = !showText
-	}	
+	import FeedbackList from './components/FeedbackList.svelte'
+	let feedback = [
+		{
+			id: 1, 
+			rating: 10, 
+			text: 'Sint ipsum dolor eiusmod elit. Lorem non qui cillum deserunt culpa magna. Veniam et exercitation qui non enim reprehenderit consectetur veniam quis sunt ad minim ad aute. Qui qui est nisi officia laborum do do voluptate excepteur dolor amet proident. Esse amet ipsum pariatur ullamco fugiat est anim minim. Commodo cillum mollit elit consequat et voluptate est.',
+		},
+		
+		{
+			id: 2, 
+			rating: 9, 
+			text: 'Sint ipsum dolor eiusmod elit. Lorem non qui cillum deserunt culpa magna. Veniam et exercitation qui non enim reprehenderit consectetur veniam quis sunt ad minim ad aute. Qui qui est nisi officia laborum do do voluptate excepteur dolor amet proident. Esse amet ipsum pariatur ullamco fugiat est anim minim. Commodo cillum mollit elit consequat et voluptate est.',
+		},
+		
+		{
+			id: 3, 
+			rating: 6, 
+			text: 'Sint ipsum dolor eiusmod elit. Lorem non qui cillum deserunt culpa magna. Veniam et exercitation qui non enim reprehenderit consectetur veniam quis sunt ad minim ad aute. Qui qui est nisi officia laborum do do voluptate excepteur dolor amet proident. Esse amet ipsum pariatur ullamco fugiat est anim minim. Commodo cillum mollit elit consequat et voluptate est.',
+		}
+	]
+const deleteFeedback = (e) => {
+	const itemId = e.detail
+	feedback = feedback.filter((item) => item.id != itemId)
+}
 </script>
 
-<main>
-	<h1 style="color: {color}">Hello {name}!</h1>
-	{#if showText}
-		<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-		<button on:click={toggle}>Button</button>
-	{:else}
-		<p>No Text</p>
-	{/if}
+<main class="container">
+	<FeedbackList {feedback} on:delete-feedback={deleteFeedback}/>
 </main>
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
 </style>
